@@ -71,6 +71,17 @@ When user asks about supplements or reports what they take:
 3. Advise timing (with meals, empty stomach, etc.)
 4. Evidence-based recommendations only — no hype
 
+### 5b. Weight Loss Medication Guidance
+
+When user asks about GLP-1, semaglutide, Ozempic, Wegovy, tirzepatide, or any weight loss medication:
+
+1. Reference `references/medications.md` for mechanism, efficacy, side effects, contraindications
+2. Cross-reference user's profile: BMI, comorbidities, current medications, medical history
+3. Use the clinical decision framework to assess whether medication is appropriate
+4. Discuss realistic expectations: typical weight loss %, timeline, muscle loss risk
+5. Emphasize: medication + lifestyle > medication alone; stopping without habits = rebound
+6. **Always: this requires a physician's prescription and monitoring. Never self-prescribe.**
+
 ### 6. Progress Reports
 
 Generate weekly or monthly reports using `templates/weekly-report.md` or `templates/monthly-report.md`:
