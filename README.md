@@ -11,6 +11,7 @@
 - 💪 **运动指导** ��� 伤病感知的训练计划、心率区间分析、动作库
 - 📊 **体重追踪** — 体重/体脂/腰围趋势，7天均值，进度预测
 - 💊 **补剂建议** — 三级证据分类、药物交互提醒
+- 💉 **减重药物指南** — GLP-1（司美格鲁肽/替尔泊肽）临床数据、副作用、中国市场可获得性、个性化用药建议
 - 📱 **Apple Health 导入** — 一键解析 iPhone 健康数据（体重、运动、步数、心率、睡眠）
 - 📈 **进度报告** — 每日记录、周报、月报自动生成
 
@@ -58,6 +59,7 @@ bash ~/.agents/skills/health-coach/scripts/report.sh . --monthly  # 月报
 | `medical-markers.md` | 血常规、生化、血脂、甲功、FeNO、激素、维生素、尿检 |
 | `exercise.md` | 训练原则、心率区间、伤病处理、动作库、训练模板 |
 | `supplements.md` | 补剂三级分类（强证据/中等/忽悠）、交互作用 |
+| `medications.md` | 减重药物：GLP-1 临床数据、副作用、中国市场价格、决策框架、案例分析 |
 | `apple-health.md` | HealthKit 数据类型、解读标准 |
 
 ## 隐私
@@ -117,6 +119,7 @@ Clinical-grade nutritional analysis, medical marker interpretation, exercise pro
 - 💪 **Exercise Programming** — Injury-aware training plans, heart rate zones
 - 📊 **Body Tracking** — Weight, body fat, waist trends over time
 - 💊 **Supplement Guidance** — Evidence-based, interaction-aware
+- 💉 **Weight Loss Medications** — GLP-1 agonists (semaglutide, tirzepatide), clinical trial data, side effects, China market availability, personalized assessment
 - 📱 **Apple Health Import** — Parse full XML export (weight, workouts, steps, HR, sleep)
 - 📈 **Progress Reports** — Daily logs, weekly & monthly summaries
 
@@ -164,6 +167,7 @@ The `references/` directory contains clinical-grade knowledge:
 | `medical-markers.md` | CBC, metabolic panel, lipids, thyroid, FeNO, hormones, vitamins, urinalysis |
 | `exercise.md` | Training principles, exercise database with injury notes, HR zones, programming templates |
 | `supplements.md` | 3-tier evidence classification, interactions, special populations |
+| `medications.md` | Weight loss drugs: GLP-1 clinical data, side effects, China pricing, decision framework, case studies |
 | `apple-health.md` | HealthKit data types, interpretation guidelines |
 
 ## Privacy
