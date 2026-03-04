@@ -189,6 +189,12 @@ PRs welcome! Areas that need help:
 
 ⚠️ **本技能提供的所有健康、营养、运动建议仅供参考，不构成医疗诊断或治疗建议。如有健康问题，请咨询专业医生。**
 
+### Model Compatibility / 模型兼容性
+
+This skill was developed and tested on **Claude Opus 4.6**. Different models may vary in accuracy — particularly for image-based tasks like meal photo analysis and lab result interpretation. If you're using a different model, please verify outputs and adjust prompts as needed for your setup.
+
+本技能基于 **Claude Opus 4.6** 开发和测试。不同模型的分析能力可能存在差异，尤其是图像识别类功能（如食物照片分析、化验单解读）。使用其他模型时，请结合自身情况验证结果，必要时调整提示词。
+
 ## License
 
 MIT
