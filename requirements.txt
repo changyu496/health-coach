@@ -1,0 +1,5 @@
+# health-coach Python dependencies
+# Install: pip install -r requirements.txt
+
+# FIT file parsing (Coros, Garmin, etc.)
+python-fitparse>=2.1.0

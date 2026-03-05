@@ -13,6 +13,7 @@
 - 💊 **补剂建议** — 三级证据分类、药物交互提醒
 - 💉 **减重药物指南** — GLP-1（司美格鲁肽/替尔泊肽）临床数据、副作用、中国市场可获得性、个性化用药建议
 - 📱 **Apple Health 导入** — 一键解析 iPhone 健康数据（体重、运动、步数、心率、睡眠）
+- 🏃 **高驰/FIT 跑步数据** — 解析 Coros/Garmin 等 FIT 文件，配速、心率、步频、跑步动力学
 - 📈 **进度报告** — 每日记录、周报、月报自动生成
 
 ## 快速开始
@@ -42,6 +43,17 @@ bash ~/.agents/skills/health-coach/scripts/init.sh .
 python3 ~/.agents/skills/health-coach/scripts/apple_health.py export/apple_health_export/export.xml --output health/ --days 30
 ```
 
+### 导入高驰/FIT 跑步数据
+
+1. 从 Coros App 或网页导出 FIT 文件
+2. 安装依赖：`pip install -r requirements.txt`（首次使用）
+3. 运行解析：
+
+```bash
+python3 ~/.agents/skills/health-coach/scripts/coros_fit.py your-run.fit --output health/
+# 支持批量：python3 .../coros_fit.py run1.fit run2.fit --output health/
+```
+
 ### 生成报告
 
 ```bash
@@ -61,6 +73,7 @@ bash ~/.agents/skills/health-coach/scripts/report.sh . --monthly  # 月报
 | `supplements.md` | 补剂三级分类（强证据/中等/忽悠）、交互作用 |
 | `medications.md` | 减重药物：GLP-1 临床数据、副作用、中国市场价格、决策框架、案例分析 |
 | `apple-health.md` | HealthKit 数据类型、解读标准 |
+| `coros-running.md` | 高驰/FIT 跑步指标解读（配速、心率、步频、跑步动力学） |
 
 ## 隐私
 
@@ -80,7 +93,8 @@ health-coach/
 │   ├── medical-markers.md
 │   ├── exercise.md
 │   ├── supplements.md
-│   └── apple-health.md
+│   ├── apple-health.md
+│   └── coros-running.md
 ├── templates/                  # 报告模板
 │   ├── daily-log.md
 │   ├── weekly-report.md
@@ -88,10 +102,21 @@ health-coach/
 └── scripts/
     ├── init.sh                 # 初始化脚本
     ├── report.sh               # 报告生成
-    └── apple_health.py         # Apple Health 数据解析
+    ├── apple_health.py         # Apple Health 数据解析
+    └── coros_fit.py            # Coros/FIT 跑步数据解析
 ```
 
 ## 更新日志
+
+### v0.3.0 — 2026-03-05
+
+#### 🆕 新增
+- **高驰/FIT 跑步数据解析** (`scripts/coros_fit.py`)
+  - 解析 Coros、Garmin 等标准 FIT 文件
+  - 输出 `health/coros-import.md`：配速、心率、步频、触地时间、垂直振幅、功率等
+  - 支持批量导入、追加、去重
+- **跑步指标解读** (`references/coros-running.md`) — 配速区间、心率区间、步频、跑步动力学
+- **requirements.txt** — 便于安装 python-fitparse 依赖
 
 ### v0.2.0 — 2026-03-05
 
@@ -130,7 +155,7 @@ health-coach/
 - 📦 **食品数据** — 更多品牌/菜系（日料、韩餐、印度菜、东南亚菜等）
 - 🔗 **数据源集成** — FatSecret API、Open Food Facts 等开放数据库对接
 - 🏋️ **训练计划生成器**
-- 📱 **Garmin/Fitbit 数据导入**
+- 📱 **Garmin/Fitbit 数据导入**（Coros FIT 已支持）
 - 🌍 **更多语言支持**
 
 ### 如何贡献食品数据
@@ -161,6 +186,7 @@ Clinical-grade nutritional analysis, medical marker interpretation, exercise pro
 - 💊 **Supplement Guidance** — Evidence-based, interaction-aware
 - 💉 **Weight Loss Medications** — GLP-1 agonists (semaglutide, tirzepatide), clinical trial data, side effects, China market availability, personalized assessment
 - 📱 **Apple Health Import** — Parse full XML export (weight, workouts, steps, HR, sleep)
+- 🏃 **Coros/FIT Running Data** — Parse Coros/Garmin FIT files (pace, HR, cadence, running dynamics)
 - 📈 **Progress Reports** — Daily logs, weekly & monthly summaries
 
 ## Quick Start
@@ -190,6 +216,17 @@ This creates a `health/` directory with your personal profile, goals, and remind
 python3 ~/.agents/skills/health-coach/scripts/apple_health.py export/apple_health_export/export.xml --output health/ --days 30
 ```
 
+### Import Coros/FIT Running Data
+
+1. Export FIT files from Coros app or website
+2. Install dependencies: `pip install -r requirements.txt` (first time)
+3. Run parser:
+
+```bash
+python3 ~/.agents/skills/health-coach/scripts/coros_fit.py your-run.fit --output health/
+# Batch: python3 .../coros_fit.py run1.fit run2.fit --output health/
+```
+
 ### Generate Reports
 
 ```bash
@@ -209,12 +246,23 @@ The `references/` directory contains clinical-grade knowledge:
 | `supplements.md` | 3-tier evidence classification, interactions, special populations |
 | `medications.md` | Weight loss drugs: GLP-1 clinical data, side effects, China pricing, decision framework, case studies |
 | `apple-health.md` | HealthKit data types, interpretation guidelines |
+| `coros-running.md` | Coros/FIT running metrics (pace, HR zones, cadence, running dynamics) |
 
 ## Privacy
 
 All health data stays 100% local in your workspace. Nothing is uploaded, shared, or transmitted. The skill operates entirely through local files and your AI agent's context.
 
 ## Changelog
+
+### v0.3.0 — 2026-03-05
+
+#### 🆕 New
+- **Coros/FIT Running Data Parser** (`scripts/coros_fit.py`)
+  - Parse Coros, Garmin, and standard FIT files
+  - Output `health/coros-import.md`: pace, HR, cadence, stance time, vertical oscillation, power
+  - Batch import, append mode, deduplication by start_time
+- **Running Metrics Reference** (`references/coros-running.md`) — Pace zones, HR zones, cadence, running dynamics
+- **requirements.txt** — For python-fitparse dependency
 
 ### v0.2.0 — 2026-03-05
 
@@ -244,7 +292,7 @@ PRs welcome! Areas that need help:
 - 📦 **Food data** — More brands/cuisines (Japanese, Korean, Indian, SEA, etc.)
 - 🔗 **Data source integration** — FatSecret API, Open Food Facts
 - 🏋️ **Workout plan generators**
-- 📱 **Garmin/Fitbit data import**
+- 📱 **Garmin/Fitbit data import** (Coros FIT supported)
 - 🌍 **Localization**
 
 ### How to contribute food data

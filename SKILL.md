@@ -1,6 +1,6 @@
 ---
 name: health-coach
-description: "Comprehensive personal health management: body composition tracking, meal photo analysis with clinical-grade nutritional breakdown, exercise logging, medical lab interpretation (blood panels, FeNO, urinalysis, etc.), supplement guidance, and periodic progress reports. Use when: (1) analyzing food photos or meal descriptions for calories/macros, (2) interpreting medical lab results or health markers, (3) tracking body metrics (weight, body fat, waist circumference), (4) planning exercise routines with injury considerations, (5) generating weekly/monthly health reports, (6) setting up health reminders (meals, movement, supplements, sleep), (7) any question about nutrition, exercise science, or wellness optimization."
+description: "Comprehensive personal health management: body composition tracking, meal photo analysis with clinical-grade nutritional breakdown, exercise logging, medical lab interpretation (blood panels, FeNO, urinalysis, etc.), supplement guidance, and periodic progress reports. Use when: (1) analyzing food photos or meal descriptions for calories/macros, (2) interpreting medical lab results or health markers, (3) tracking body metrics (weight, body fat, waist circumference), (4) planning exercise routines with injury considerations, (5) generating weekly/monthly health reports, (6) setting up health reminders (meals, movement, supplements, sleep), (7) parsing or interpreting Coros/FIT running data, (8) any question about nutrition, exercise science, or wellness optimization."
 ---
 
 # Health Coach
@@ -102,6 +102,16 @@ When Apple Health data is available (via Shortcuts or export):
 2. Cross-reference with manual logs
 3. Use for more accurate calorie expenditure estimates
 4. Reference `references/apple-health.md` for data format and fields
+
+### 8. Coros / FIT Running Data
+
+When user provides Coros (or other FIT format) running files:
+
+1. Guide user to run: `python3 scripts/coros_fit.py file.fit [file2.fit ...] --output health/`
+2. Script parses FIT and appends to `health/coros-import.md` (deduplicates by start_time)
+3. Reference `references/coros-running.md` for metric interpretation (pace, HR zones, cadence, running dynamics)
+4. Cross-reference `health/profile.md` for injuries before giving training advice
+5. Suggest adding run to daily log `health/logs/YYYY-MM-DD.md` if not already recorded
 
 ## Reminders
 
