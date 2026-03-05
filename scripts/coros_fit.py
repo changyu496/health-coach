@@ -38,6 +38,20 @@ def or_dash(v):
     return v if v is not None else "—"
 
 
+def cadence_to_spm(raw):
+    """
+    Convert FIT cadence to steps per minute (spm).
+    Coros/Garmin store running_cadence as strides/min (one foot) in FIT.
+    Steps/min = strides/min × 2. E.g. 94 strides → 188 spm.
+    """
+    if raw is None:
+        return None
+    raw = int(raw)
+    if raw < 120:  # Likely strides/min (one foot)
+        return raw * 2
+    return raw
+
+
 def speed_to_pace_minkm(speed_ms):
     """Convert speed (m/s) to pace (min/km). Returns '—' if invalid."""
     if speed_ms is None or speed_ms <= 0:
@@ -106,8 +120,8 @@ def parse_session(session_msg):
         "total_ascent": safe_get(v, "total_ascent"),
         "total_descent": safe_get(v, "total_descent"),
         "total_strides": safe_get(v, "total_strides"),
-        "avg_cadence": safe_get(v, "avg_running_cadence"),
-        "max_cadence": safe_get(v, "max_running_cadence"),
+        "avg_cadence": cadence_to_spm(safe_get(v, "avg_running_cadence")),
+        "max_cadence": cadence_to_spm(safe_get(v, "max_running_cadence")),
         "avg_step_length_mm": safe_get(v, "avg_step_length"),
         "avg_power": safe_get(v, "avg_power"),
         "avg_stance_time_ms": safe_get(v, "avg_stance_time"),
@@ -136,7 +150,7 @@ def parse_lap(lap_msg):
         "pace": speed_to_pace_minkm(avg_speed),
         "avg_hr": safe_get(v, "avg_heart_rate"),
         "calories": safe_get(v, "total_calories"),
-        "avg_cadence": safe_get(v, "avg_running_cadence"),
+        "avg_cadence": cadence_to_spm(safe_get(v, "avg_running_cadence")),
     }
 
 

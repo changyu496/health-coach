@@ -34,6 +34,8 @@ Interpretation guide for running data from Coros watches (and compatible FIT fil
 
 ### Cadence (steps/min)
 
+Running cadence = steps per minute (both feet). Coros/Garmin FIT stores as strides/min (one foot); the parser converts to spm.
+
 | Cadence | Notes |
 |---------|-------|
 | 160–180 spm | Efficient range; 170–180 often cited as optimal |
