@@ -8,6 +8,8 @@ Interpretation guide for running data from Coros watches (and compatible FIT fil
 - **Parse:** `python3 scripts/coros_fit.py yourfile.fit --output health/`
 - **Output:** `health/coros-import.md` (session summary + lap breakdown)
 
+**Timezone:** FIT timestamps are UTC. The parser converts to local time (default UTC+8 for East Asia). Use `--timezone -5` for US Eastern, etc.
+
 ## Key Metrics
 
 ### Pace (min/km)

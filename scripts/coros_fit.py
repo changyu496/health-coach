@@ -17,7 +17,7 @@ Output: health/coros-import.md (appends new sessions, deduplicates by start_time
 import os
 import sys
 import re
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from argparse import ArgumentParser
 
 try:
@@ -62,6 +62,19 @@ def speed_to_pace_minkm(speed_ms):
     return f"{minutes}:{seconds:02d}"
 
 
+def utc_to_local(dt, utc_offset_hours=8):
+    """
+    Convert UTC datetime to local time.
+    FIT timestamps are stored in UTC. Default +8 for East Asia (China).
+    """
+    if dt is None or not hasattr(dt, "strftime"):
+        return dt
+    if getattr(dt, "tzinfo", None) is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    local_tz = timezone(timedelta(hours=utc_offset_hours))
+    return dt.astimezone(local_tz)
+
+
 def format_duration(seconds):
     """Format seconds as M:SS or H:MM:SS."""
     if seconds is None or seconds < 0:
@@ -74,12 +87,15 @@ def format_duration(seconds):
     return f"{m}:{s:02d}"
 
 
-def parse_session(session_msg):
+def parse_session(session_msg, utc_offset_hours=8):
     """Extract session data from FIT session message."""
     v = session_msg.get_values()
     start_time = safe_get(v, "start_time")
     if start_time is None:
         return None
+
+    # FIT timestamps are UTC; convert to local
+    start_time = utc_to_local(start_time, utc_offset_hours)
 
     # Handle datetime objects
     if hasattr(start_time, "strftime"):
@@ -154,7 +170,7 @@ def parse_lap(lap_msg):
     }
 
 
-def parse_fit_file(path):
+def parse_fit_file(path, utc_offset_hours=8):
     """Parse a single FIT file, return list of (session, laps) tuples."""
     results = []
     try:
@@ -176,7 +192,7 @@ def parse_fit_file(path):
 
     # Typically 1 session per file; all laps belong to it
     for sess in sessions:
-        session_data = parse_session(sess)
+        session_data = parse_session(sess, utc_offset_hours)
         if session_data:
             results.append((session_data, all_laps))
 
@@ -289,6 +305,12 @@ def main():
         action="store_true",
         help="Overwrite output file instead of appending",
     )
+    parser.add_argument(
+        "--timezone", "-z",
+        type=int,
+        default=8,
+        help="UTC offset in hours for local time (default: 8 for East Asia)",
+    )
 
     args = parser.parse_args()
 
@@ -302,7 +324,7 @@ def main():
             print(f"❌ File not found: {path}")
             continue
         print(f"📱 Parsing: {path}")
-        for sess, laps in parse_fit_file(path):
+        for sess, laps in parse_fit_file(path, utc_offset_hours=args.timezone):
             all_sessions.append((sess, laps))
             print(f"   Found: {sess['date']} {sess['time']} — {sess['distance_km']} km {sess['sport']}")
 

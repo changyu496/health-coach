@@ -52,6 +52,7 @@ python3 ~/.agents/skills/health-coach/scripts/apple_health.py export/apple_healt
 ```bash
 python3 ~/.agents/skills/health-coach/scripts/coros_fit.py your-run.fit --output health/
 # 支持批量：python3 .../coros_fit.py run1.fit run2.fit --output health/
+# 时区：FIT 存 UTC，默认转东八区。其他时区用 --timezone -5 等
 ```
 
 ### 生成报告
@@ -225,6 +226,7 @@ python3 ~/.agents/skills/health-coach/scripts/apple_health.py export/apple_healt
 ```bash
 python3 ~/.agents/skills/health-coach/scripts/coros_fit.py your-run.fit --output health/
 # Batch: python3 .../coros_fit.py run1.fit run2.fit --output health/
+# Timezone: FIT is UTC; default converts to UTC+8. Use --timezone -5 for US Eastern, etc.
 ```
 
 ### Generate Reports
