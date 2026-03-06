@@ -21,7 +21,7 @@
 ### 安装
 
 ```bash
-npx skills add H1an1/health-coach -g -y
+npx skills add changyu496/health-coach -g -y
 ```
 
 ### 初始化个人档案
@@ -195,7 +195,7 @@ Clinical-grade nutritional analysis, medical marker interpretation, exercise pro
 ### Install as a Skill
 
 ```bash
-npx skills add H1an1/health-coach -g -y
+npx skills add changyu496/health-coach -g -y
 ```
 
 ### Initialize Your Profile
